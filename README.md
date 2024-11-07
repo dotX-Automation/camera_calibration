@@ -1,8 +1,6 @@
-# dua-template
+# camera_calibration
 
-GitHub template repositories for projects based on the Distributed Unified Architecture.
-
-See [`dua-template.md`](dua-template.md) for more information.
+Codes and software packages for camera calibration.
 
 ---
 
