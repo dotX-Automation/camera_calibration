@@ -24,29 +24,3 @@
 # You can also source other files from sub-units included by this project.
 
 # shellcheck disable=SC1090
-
-# Source DUA commands
-source ~/.dua_submod.sh
-source ~/.dua_subtree.sh
-
-# Routine to convert an angle in degrees [-180° +180°] to radians [-PI +PI].
-function degrad {
-  local angle_in_degrees="$1"
-  angle_in_radians=$(python3 -c "import sys, math; angle=float(sys.argv[1]); print(math.radians((angle + 180) % 360 - 180))" "$angle_in_degrees")
-  echo "$angle_in_radians"
-}
-
-# Routine to update dua-utils.
-function utils-update {
-  CURR_SHELL=$(ps -p $$ | awk 'NR==2 {print $4}')
-
-  pushd || return
-  cd /opt/ros/dua-utils || return
-  git pull
-  git submodule update --init --recursive
-  rm -rf install
-  colcon build --merge-install
-  rm -rf build log
-  source "install/local_setup.$CURR_SHELL"
-  popd || return
-}
