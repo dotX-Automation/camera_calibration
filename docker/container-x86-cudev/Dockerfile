@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM dotxautomation/dua-foundation:TARGET
+FROM dotxautomation/dua-foundation:x86-cudev
 
 # Change this if you encounter problems with the default user
 ARG USER_UID=1000
@@ -32,16 +32,16 @@ ENV DEBIAN_FRONTEND=noninteractive
 # To generate the hashed password, run:
 #   mkpasswd -m sha-512 PASSWORD duatemplate
 RUN (getent passwd ${USER_UID} || true) && userdel -r $(getent passwd ${USER_UID} | cut -d: -f1) 2>/dev/null || true; \
-  useradd -r -m -s /usr/bin/zsh -u ${USER_UID} -G adm,dialout,internal,plugdev,sudo,tty,video -p 'HPSW' neo
+  useradd -r -m -s /usr/bin/zsh -u ${USER_UID} -G adm,dialout,internal,plugdev,sudo,tty,video -p '$6$duatemplate$QJg/Q3OQx9gzBdEbVj1O626gbBTWTGhKf6/EWLyPOMQ/WNfrlKCWLk5a6QXk2ZeHbQiT5/wxDkxFKJPnNVQVx.' neo
 ENV HOME=/home/neo
 
 # Create workspace directory: host workspaces will be mounted here
 RUN mkdir ${HOME}/workspace && \
-    chown neo:neo ${HOME}/workspace
+  chown neo:neo ${HOME}/workspace
 
 # Create directory for shell history file
 RUN mkdir ${HOME}/zsh_history && \
-    chown neo:neo ${HOME}/zsh_history
+  chown neo:neo ${HOME}/zsh_history
 
 # Create SSH directory for user
 RUN mkdir ${HOME}/.ssh
@@ -70,14 +70,10 @@ ENV ZSH_PLUGINS=${ZSH_CUSTOM}/plugins
 ENV ZSH_THEMES=${ZSH_CUSTOM}/themes
 RUN wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | zsh || true
 RUN git clone --single-branch --branch 'master' --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_PLUGINS}/zsh-syntax-highlighting \
-    && git clone --single-branch --branch 'master' --depth 1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_PLUGINS}/zsh-autosuggestions \
-    && git clone --single-branch --depth 1 https://github.com/romkatv/powerlevel10k.git ${ZSH_THEMES}/powerlevel10k
+  && git clone --single-branch --branch 'master' --depth 1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_PLUGINS}/zsh-autosuggestions \
+  && git clone --single-branch --depth 1 https://github.com/romkatv/powerlevel10k.git ${ZSH_THEMES}/powerlevel10k
 COPY --chown=neo:neo ./p10k.zsh ./.p10k.zsh
 COPY --chown=neo:neo ./zshrc ./.zshrc
-
-# Configure OpenGL
-# This happens to fix some but not all problems on macOS with 3D acceleration
-ENV LIBGL_ALWAYS_INDIRECT=1
 
 ENV DEBIAN_FRONTEND=dialog
 

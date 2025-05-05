@@ -1,12 +1,12 @@
 {
-  "name": "SERVICE",
+  "name": "camera_calibration-x86-dev",
   "dockerComposeFile": [
     "docker-compose.yaml"
   ],
   // Only start this service
-  "service": "SERVICE",
+  "service": "camera_calibration-x86-dev",
   "runServices": [
-    "SERVICE"
+    "camera_calibration-x86-dev"
   ],
   // Stop container if VS Code is shut down
   "shutdownAction": "stopCompose",
