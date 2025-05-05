@@ -2,14 +2,20 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>camera_calibration</name>
-  <version>4.0.0</version>
+  <version>6.1.0</version>
   <description>
      ROS 2 package for easy camera calibration with a graphical user interface.
   </description>
 
   <maintainer email="info@dotxautomation.com">dotX Automation s.r.l.</maintainer>
+  <maintainer email="vincent.rabaud@gmail.com">Vincent Rabaud</maintainer>
+  <maintainer email="whitleysoftwareservices@gmail.com">Joshua Whitley</maintainer>
+  <maintainer email="jacob@openrobotics.org">Jacob Perron</maintainer>
+  <maintainer email="mfergs7@gmail.com">Michael Ferguson</maintainer>
+  <author>James Bowman</author>
+  <author>Patrick Mihelich</author>
 
-  <license>Apache-2.0</license>
+  <license>BSD-3-Clause</license>
 
   <depend>cv_bridge</depend>
   <depend>image_geometry</depend>
